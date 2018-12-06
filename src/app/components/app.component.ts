@@ -1,0 +1,44 @@
+import { Component, ViewChild } from '@angular/core';
+import { ConfirmationModalComponent } from '../shared/dialog/confirmation-modal.component';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { RouteHistoryService } from '../core/routing/route-history.service';
+import { RouteFlattenerService } from '../core/routing/route-flattener.service';
+import { DialogService } from '../shared/dialog/dialog.service';
+import { filter } from 'rxjs/operators';
+
+@Component({
+  selector: 'windup-app',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  @ViewChild('reusableModalDialog')
+  confirmationDialog: ConfirmationModalComponent;
+
+  /*
+     * This is for Augury Chrome extension to display router tree
+     * See https://github.com/rangle/augury/issues/715
+     *
+     * When extension is fixed, this can be safely removed
+     */
+  constructor(
+    private router: Router,
+    private routeHistoryService: RouteHistoryService,
+    private routeFlattener: RouteFlattenerService,
+    private activatedRoute: ActivatedRoute,
+    private dialogService: DialogService
+  ) {
+    router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.routeHistoryService.addNavigationEvent(event);
+        this.routeFlattener.onNewRouteActivated(activatedRoute.snapshot);
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.dialogService.setConfirmationDialog(this.confirmationDialog);    
+  }
+
+}
