@@ -22,6 +22,7 @@
     "bootstrap": "~3.3.7",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
+    "keycloak-js": "^4.7.0",
     "patternfly": "^3.58.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

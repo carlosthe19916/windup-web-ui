@@ -5,15 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalDialogComponent } from './dialog/modal-dialog.component';
 import { ConfirmationModalComponent } from './dialog/confirmation-modal.component';
 import { DialogService } from './dialog/dialog.service';
+import { DefaultLayoutComponent } from "./layout/default-layout.component";
 
 @NgModule({
   declarations: [
     ConfirmationModalComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    DefaultLayoutComponent
   ],
   exports: [
     ConfirmationModalComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
+    DefaultLayoutComponent
   ],
   imports: [
     CommonModule,
